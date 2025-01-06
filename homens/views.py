@@ -4,7 +4,9 @@ from .models import Presentes
 
 def home(request):
     if request.method == "GET":
-        return render(request, 'home.html')
+
+        presentes = Presentes.objects.all()
+        return render(request, 'home.html', {'presentes': presentes})
 
     elif request.method == "POST":
         nome_presente = request.POST.get('nome_presente')
@@ -24,9 +26,11 @@ def home(request):
 
         presentes = Presentes(
         nome_presente =nome_presente,
+         foto = foto,
         preco = preco,
-        importancia = importancia,
-        foto = foto,)
+        importancia = importancia
+       
+        )
 
         presentes.save()
 

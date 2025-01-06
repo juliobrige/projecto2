@@ -8,6 +8,13 @@
                 
                 <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900">Crie sua lista de presentes</h2>
                 <br>
+
+                {% for i in Presentes %} 
+                {{i}}
+
+
+                {% endfor %}
+
                 <form action="{% url 'home' %}" method="POST">
                      {% csrf_token %}
                   <label class="mt-4 block text-sm leading-6 text-gray-900">Nome do presente</label>
@@ -41,7 +48,7 @@
                     
                       
 
-                  </div>
+                  </div> 
                   
                  
                 </form>
@@ -55,26 +62,39 @@
         </div>
 
         <div class="grid grid-cols-5 mt-4 gap-4">
+
+            {% for i in presentes%}
           
             <div>
                 
                 <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="" alt="">
                 
-                <h3 class="mt-2 text-lg font-semibold leading-8 text-gray-900">Air fryer</h3>
+                <h3 class="mt-2 text-lg font-semibold leading-8 text-gray-900">{{i.nome_presente}} </h3>
                 
                   <p class="mt-4 block text-sm leading-6 text-gray-900">Reservado por Julio benjamim</p>
                 
                 <p class="text-base leading-7 text-gray-600"></p>
+
+
              
                 <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/30">Pouco importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-400">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </span>
-            
+                
+
+                 <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-orange-400 ring-1 ring-inset ring-green-400/30">Importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+              </span>
+
+                 
+
 
                 
-                
             </div>
+
+            {%endfor%}
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('myChart');
