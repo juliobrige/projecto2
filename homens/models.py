@@ -28,12 +28,17 @@ class Convidados(models.Model):
         return f"{self.nome_convidado} (Status: {self.get_status_display()})"
 
 
+# models.py
+
+
 class Presentes(models.Model):
     nome_presente = models.CharField(max_length=100)
-    foto = models.ImageField(upload_to='presentes')
+    foto = models.ImageField(upload_to='presentes')  # O diretório onde as imagens serão armazenadas
     preco = models.DecimalField(max_digits=6, decimal_places=2)  
     importancia = models.IntegerField()
     reservado = models.BooleanField(default=False)
+    
+
     reservado_por = models.ForeignKey(
         Convidados, null=True, blank=True, on_delete=models.DO_NOTHING,
         related_name="presentes_reservados"
