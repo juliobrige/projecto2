@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from homens.models import Convidados, Presentes
 
-# Visualizar detalhes do convidado e lista de presentes disponíveis
+
 def convidados(request):
     token = request.GET.get('token')
     try:
