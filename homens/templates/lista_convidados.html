@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block 'body' %}
+
+{% include 'partials/navbar.html' %}
+    <div class="max-w-7xl mx-auto mt-12">
+        <div class="grid gap-4 grid-cols-2">
+            <div class="bg-slate-200/20 p-6 rounded-md">
+              <form action="{% url 'lista_convidados' %}" method="POST">{% csrf_token %}
+                <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900">Cradastre seus convidados</h2>
+                <br>
+                <label class="mt-4 block text-sm leading-6 text-gray-900">Nome do convidado</label>
+                <input type="text" name="nome_convidado" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="mt-4 block text-sm leading-6 text-gray-900">WhatsApp</label>
+                        <input type="text" name="whatsapp" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <div>
+                        <label class="mt-4 block text-sm leading-6 text-gray-900">Máximo de acompanhantes</label>
+                        <input type="number" name="maximo_acompanhantes" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                    <input type="submit" class="rounded-md mt-4 bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400" value="Adicionar convidado">
+                </div>
+              </form>
+            </div>
+
+            <div>
+                <ul role="list" class="divide-y divide-gray-100">
+                    {% for convidado in convidados %}
+                      <li class="flex items-center justify-between gap-x-6 py-5">
+                        <div class="flex min-w-0 gap-x-4">
+                          <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{% static 'noivos/img/default.png' %}" alt="">
+                          <div class="min-w-0 flex-auto">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">{{convidado.nome_convidado}}</p>
+                            <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{convidado.whatsapp}}</p>
+                            <p class="mt-1 text-xs leading-5 text-gray-500">{{convidado.link_convite}}</p>
+                          </div>
+                        </div>
+                        <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset {% if convidado.status == 'AC' %}text-indigo-700 bg-indigo-50 ring-indigo-600/20{% elif convidado.status == 'C'%}text-green-700 bg-green-50 ring-green-600/20{% else %}text-red-700 bg-red-50 ring-red-600/20{% endif %}">{{convidado.get_status_display}}</span>
+                      </li>
+                    {% endfor %}
+
+                    
+                  </ul>
+            </div>
+
+              
+
+        </div>
+        
+    </div>
+    
+{% endblock %}

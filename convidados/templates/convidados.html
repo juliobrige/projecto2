@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block 'body' %}
+    <div class="max-w-7xl mx-auto mt-12">
+        <div class="mx-auto max-w-2xl text-center">
+
+            <h2 class="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Olá, {{convidado.nome_convidado}}</h2>
+            
+            
+            <p class="mt-2 text-lg leading-8 text-gray-600">Confirme sua presença no casamento: <a href="{% url 'responder_presenca' %}?resposta=C&token={{convidado.token}}" class="text-green-400">confirmar</a>, <a href="{% url 'responder_presenca' %}?resposta=R&token={{convidado.token}}" class="text-red-400">recusar</a></p>
+       
+        </div>
+        <br>
+        <hr>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <p class="mt-2 text-lg leading-8 text-gray-600">Escolha o presente para os noivos</p>
+                <div class="grid grid-cols-3 mt-4 gap-4">
+                    
+                    {% for presente in presentes %}
+                        <div>
+                            {% if presente.foto %}
+                            <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="{{presente.foto.url}}" alt="">
+                            {% endif %}
+                            <h3 class="mt-2 text-lg font-semibold leading-8 text-gray-900">{{presente.nome_presente}}</h3>
+                            <p class="text-base leading-7 text-gray-600"></p>
+                            {% if presente.importancia <= 2 %}
+                            <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/30">Pouco importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </span>
+                            {% elif presente.importancia < 4 %}
+                            <span class="inline-flex items-center rounded-md bg-orange-400/10 px-2 py-1 text-xs font-medium text-orange-400 ring-1 ring-inset ring-orange-400/30">Importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-orange-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/30">Muito importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </span>
+                            {% endif %}
+
+                            <a href="/convidado/reservar_presente/{{presente.id}}?token={{convidado.token}}" class="rounded-md block w-full mt-4 bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 cursor-pointer">Reservar</a>
+
+                            
+                            
+                        </div>
+
+                    {% endfor %}
+                    
+        
+                </div>
+            </div>
+
+            <div class="bg-slate-200/20 p-6 rounded-md mt-4  drop-shadow-lg ring-1 ring-gray-600/20">
+                
+                <h2 class="text-balance text-xl font-semibold tracking-tight text-gray-900 text-center">Adicione seus acompanhantes</h2>
+                <form action="" method="POST">
+                    <label class="mt-4 block text-sm leading-6 text-gray-900">Nome</label>
+                    <input type="text" name="nome" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <input type="submit" class="rounded-md mt-4 bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 cursor-pointer" value="Adicionar">
+                </form>
+                <br>
+                <br>
+                <hr>
+                <br>
+                <ul>
+                    
+                        <li class="bg-slate-100 p-4">
+                            Caio Sampaio
+
+                        </li>
+                        <br>
+                    
+                </ul>
+
+            </div>  
+        </div>
+        
+        
+        
+    </div>
+       
+{% endblock %}

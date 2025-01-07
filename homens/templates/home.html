@@ -63,34 +63,37 @@
 
         <div class="grid grid-cols-5 mt-4 gap-4">
 
-            {% for i in presentes%}
+          {% for presente in presentes %}
+          <div>
+              {% if presente.foto %}
+              <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="{{presente.foto.url}}" alt="">
+              {% endif %}
+              <h3 class="mt-2 text-lg font-semibold leading-8 text-gray-900">{{presente.nome_presente}}</h3>
           
-            <div>
-                
-                <img class="aspect-[3/2] w-full rounded-2xl object-cover" src="" alt="">
-                
-                <h3 class="mt-2 text-lg font-semibold leading-8 text-gray-900">{{i.nome_presente}} </h3>
-                
-                  <p class="mt-4 block text-sm leading-6 text-gray-900">Reservado por Julio benjamim</p>
-                
-                <p class="text-base leading-7 text-gray-600"></p>
-
-
-             
-                <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/30">Pouco importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </span>
-                
-
-                 <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-orange-400 ring-1 ring-inset ring-green-400/30">Importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-400">
+              <p class="mt-4 block text-sm leading-6 text-gray-900">Reservado por Caio Sampaio</p>
+          
+              <p class="text-base leading-7 text-gray-600"></p>
+              {% if presente.importancia <= 2 %}
+              <span class="inline-flex items-center rounded-md bg-green-400/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-400/30">Pouco importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-green-400">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                   </svg>
               </span>
-
-                 
-
-
+              {% elif presente.importancia < 4 %}
+              <span class="inline-flex items-center rounded-md bg-orange-400/10 px-2 py-1 text-xs font-medium text-orange-400 ring-1 ring-inset ring-orange-400/30">Importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-orange-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+              </span>
+              {% else %}
+              <span class="inline-flex items-center rounded-md bg-red-400/10 px-2 py-1 text-xs font-medium text-red-400 ring-1 ring-inset ring-red-400/30">Muito importante <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-red-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+              </span>
+              {% endif %}
+      
+              
+              
+          </div>
+      
                 
             </div>
 
@@ -105,7 +108,7 @@
         labels: ['Não reservado', 'Reservado'],
         datasets: [{
           label: 'Presentes',
-          data: [5, 6],
+          data: {{data}},
           borderWidth: 1
         }]
       },
